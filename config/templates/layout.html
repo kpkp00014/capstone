@@ -1,0 +1,46 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="stylesheet" href="{% static 'css/reset.css' %}" />
+        <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+        <title>뭐먹냐</title>
+        {% block head %}
+        {% endblock %}
+        </head>
+    <body>
+        <section class="container">
+            <div class="header">
+                <div class="inner">
+                    <h1 class="logo">
+                        <a href="index.html">
+                        <div class="logo_icon"></div>
+                        </a>
+                    </h1>
+                    <div id="search_box">
+                        <input type="text" class="search_input" placeholder="#검색" />
+                        <div class="fake_box">#검색</div>
+                    </div>
+                    <div class="more">
+                        <ul id="more_menu">
+                            <li><a href="" class="nodeco">마이페이지</a></li>
+                            <li><a href="" class="nodeco">로그아웃</a></li>
+                        </ul>
+                    </div>
+                    <a href="" class="nodeco hidden">
+                    <div class="login">
+                        Log in / Register
+                    </div>
+                    </a>
+                </div>
+            </div>
+        </section>
+        <section id="main_container">
+            {% block content %}
+            {% endblock %}
+        </section>
+    </body>
+</html>
