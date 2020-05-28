@@ -1,0 +1,44 @@
+{% extends "post/layout.html" %}
+{% load static %}
+<div class="inner">
+    <div id="hottest" class="main_contents">
+        <div class="contents_header">
+            <div class="box_title">Hottest</div>
+            <div class="more">더보기</div>
+        </div>
+        {% for post in posts %}
+        <div class="contents_item_box oneline_contents">
+            <div class="contents">
+                <img src="./imgs/sample.jpg" alt="이미지" />
+                <span class="maintag">#샘플샷</span>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    <div id="recommend" class="main_contents">
+        <div class="contents_header">
+            <div class="box_title">Recommend</div>
+            <div class="more">더보기</div>
+        </div>
+        {% for post in posts %}
+        <div class="contents_item_box oneline_contents">
+            <div class="contents">
+                <img src="./imgs/sample.jpg" alt="이미지" />
+                <span class="maintag">#샘플샷</span>
+            </div>
+        </div>
+        {% end for %}
+    </div>
+    <div id="recent" class="main_contents">
+        <div class="contents_header">
+            <div class="box_title">Recents</div>
+        </div>
+        {% for post in posts %}
+        <div class="contents_item_box recent_contents">
+            <div class="contents">
+                <img src="./imgs/sample.jpg" alt="이미지" />
+                <span class="maintag">#샘플샷</span>
+            </div>
+        </div>
+        {% endfor %}
+</div>
