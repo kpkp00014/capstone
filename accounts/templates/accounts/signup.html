@@ -1,4 +1,9 @@
 {% extends "accounts/layout.html" %}
+{% load static %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/login.css' %}" />
+{% endblock %}
 
 {% block content %}
 <div class="form_container">
@@ -11,8 +16,7 @@
     </div>
     <div class="bottom_box">
         <div>
-            <span>아이디가 있다면?</span>
-            <a href="/accounts/login">로그인</a>
+            <a href="/accounts/login">아이디가 있으신가요? 로그인</a>
         </div>
     </div>
 </div>    

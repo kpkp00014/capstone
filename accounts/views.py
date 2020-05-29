@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.shortcuts import redirect, render
 from django.contrib.auth import logout as django_logout
+from django.contrib.auth import authenticate, login
 from .forms import SignupForm, LoginForm
 
 # Create your views here.

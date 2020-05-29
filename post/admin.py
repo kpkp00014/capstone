@@ -4,7 +4,7 @@ from .models import Post
 
 # Register your models here.
 class PostForm(forms.ModelForm):
-    content = forms.CharField(widget = forms.Textarea)
+    content = forms.CharField(widget=forms.Textarea)
     
     class Meta:
         model = Post

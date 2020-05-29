@@ -12,7 +12,7 @@ class LoginForm(forms.ModelForm):
         
 class SignupForm(UserCreationForm):
     username = forms.CharField(label='사용자명', widget=forms.TextInput(attrs={
-        'pattern': '[a-zA-Z0-9]',
+        'pattern': '[a-zA-Z0-9]+',
         'title' : '특수문자, 공백 입력 불가',
     }))
     
@@ -21,6 +21,7 @@ class SignupForm(UserCreationForm):
     
     class Meta(UserCreationForm.Meta):
         fields = UserCreationForm.Meta.fields + ('email',)
+        
         
     def clean_nickname(self):
         nickname = self.cleaned_data.get('nickname')
@@ -49,3 +50,4 @@ class SignupForm(UserCreationForm):
             picture=self.cleaned_data['picture'],
         )
         return user
+    

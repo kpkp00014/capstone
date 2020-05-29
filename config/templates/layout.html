@@ -27,7 +27,12 @@
                     <div class="more">
                         <ul id="more_menu">
                             <li><a href="" class="nodeco">마이페이지</a></li>
-                            <li><a href="" class="nodeco">로그아웃</a></li>
+                            {% if user.is_avtivate %}
+                            <li><a href="/accounts/logout" class="nodeco">로그아웃</a></li>
+                            {% else %}
+                            <li><a href="/accounts/signup" class="nodeco">회원가입</a></li>
+                            <li><a href="/accounts/login" class="nodeco">로그인</a></li>
+                            {% endif %}
                         </ul>
                     </div>
                     <a href="" class="nodeco hidden">

@@ -28,7 +28,7 @@ body {
   align-items: center;
 }
 
-.header .inner .logo .logo_icon {
+.logo_icon {
   display: inline-block;
   width: 100px;
   height: 40px;
