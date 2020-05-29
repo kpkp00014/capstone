@@ -1,6 +1,6 @@
 from django import forms
 from django.contrib import admin
-from .models import Post
+from .models import Post, Tag
 
 # Register your models here.
 class PostForm(forms.ModelForm):
@@ -18,3 +18,8 @@ class PostAdmin(admin.ModelAdmin):
     
     def nickname(request, post):
         return post.author.profile.nickname
+    
+    
+@admin.register(Tag)
+class TagAdmin(admin.ModelAdmin):
+    list_display = ['name']

@@ -1,5 +1,6 @@
 {% extends "post/layout.html" %}
 {% load static %}
+{% load post_extras %}
 {% block content %}
 <div class="inner">
     <div id="hottest" class="main_contents">
@@ -10,8 +11,10 @@
            <div class="contents_item_box oneline_contents">
         {% for post in posts %}
             <div class="contents">
-                <img src="{{ post.photo.url }}" alt="이미지" />
-                <span class="maintag">{{ post.content }}</span>
+                <a href="/post/post_num/{{ post.id }}">
+                    <img src="{{ post.photo.url }}" name="{{ post.id }}" alt="이미지" />
+                    <span class="maintag">{{ post.content }}</span>
+                </a>
             </div>
         {% endfor %}
         </div>
@@ -23,9 +26,11 @@
         </div>
         <div class="contents_item_box oneline_contents">
         {% for post in posts %}
-            <div class="contents">
-                <img src="{{ post.photo.url }}" alt="이미지" />
-                <span class="maintag">{{ post.content }}</span>
+             <div class="contents">
+                <a href="/post/post_num/{{ post.id }}">
+                    <img src="{{ post.photo.url }}" name="{{ post.id }}" alt="이미지" />
+                    <span class="maintag">{{ post.content }}</span>
+                </a>
             </div>
         {% endfor %}
         </div>
@@ -36,9 +41,11 @@
         </div>
            <div class="contents_item_box recent_contents">
         {% for post in posts %}
-            <div class="contents">
-                <img src="{{ post.photo.url }}" alt="이미지" />
-                <span class="maintag">{{ post.content }}</span>
+              <div class="contents">
+                <a href="/post/post_num/{{ post.id }}">
+                    <img src="{{ post.photo.url }}" name="{{ post.id }}" alt="이미지" />
+                    <span class="maintag">{{ post.content }}</span>
+                </a>
             </div>
         {% endfor %}
         </div>

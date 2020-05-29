@@ -1,0 +1,28 @@
+
+.post_form .title{
+    text-align: center;
+}
+
+#imageCanvas{
+    background: url(../imgs/plus_icon.png);
+    width: 400px;
+    height: 400px;
+    text-align: center;
+    vertical-align: middle;
+}
+
+
+.submit_btn {
+    width: 100%;
+    background: #eff;
+    border: 1px solid #aaa;
+    border-radius: 5px;
+}
+
+.post-new-content{
+    border: rgba(0,0,0,0.09);
+    background: #fee;
+    border-radius: 5px;
+    margin: 10px 0px;
+    padding: 7px;
+}

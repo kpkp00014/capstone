@@ -22,10 +22,30 @@ class Post(models.Model):
                                 options = {'quality' : 90})
     content = models.CharField(max_length = 200, help_text = "최대 길이 200자")
     
+    tag_set = models.ManyToManyField('Tag', blank=True)
+    
     created_at = models.DateTimeField(auto_now_add = True)
     updated_at = models.DateTimeField(auto_now = True)
     
     class Meta:
         ordering = ['-created_at']
         
+    def tag_save(self):
+        tags = re.findall(r'#(\w+)\b', self.content)
+        
+        if not tags:
+            return
+        
+        for t in tags:
+            tag, tag_created = Tag.objects.get_or_create(name=t)
+            self.tag_set.add(tag)
     
+    def __str__(self):
+        return self.content
+    
+    
+class Tag(models.Model):
+    name = models.CharField(max_length=140, unique=True)
+    
+    def __str__(self):
+        return self.name

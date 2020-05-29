@@ -1,0 +1,26 @@
+{% extends "post/layout.html" %}
+{% load static %}
+{% load post_extras %}
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/post_num.css' %}">
+{% endblock %}
+{% block content %}
+<div class="contents">
+    <div class="title">작성자: {{ posts.author }} </div>
+    <div class="timer">{{ posts.created_at|timesince }} 전</div>
+    <img src="{{ posts.photo.url }}" name="{{ posts.pk }}" alt="이미지" />
+    <br><span class="maintag">{{ posts | add_link | safe | linebreaksbr }}</span>
+    {% if posts.author == user %}
+    <form action="{% url 'post:post_delete' posts.pk %}" method="post">
+        {% csrf_token %}
+        <input type="submit" value="삭제">
+    </form>
+    <form action="{% url 'post:post_edit' posts.pk %}" method="post">
+        {% csrf_token %}
+        <input type="submit" value="수정">
+    </form>
+    {% else %}
+        <div class="user_info">사용자: {{ user }}</div>
+    {% endif %}
+</div>
+{% endblock %}
