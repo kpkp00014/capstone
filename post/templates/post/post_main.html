@@ -1,0 +1,60 @@
+{% extends "post/layout.html" %}
+{% load static %}
+{% load post_extras %}
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/post.css' %}" />
+{% endblock %}
+{% block content %}
+<div class="inner">
+    <div id="hottest" class="main_contents">
+        <div class="contents_header">
+            <div class="box_title">Hottest</div>
+            <div class="more">더보기</div>
+        </div>
+           <div class="contents_item_box oneline_contents">
+        <div class="arrow_left"></div>
+        <div class="arrow_right"></div>
+        {% for post in hottest_list %}
+            <div class="contents slide">
+                <a href="/post/post_num/{{ post.id }}">
+                    <img src="{{ post.photo.url }}" name="{{ post.id }}" alt="이미지" />
+                    <span class="maintag">{{ post.content }}</span>
+                </a>
+            </div>
+        {% endfor %}
+        </div>
+    </div>
+    <div id="friend" class="main_contents">
+        <div class="contents_header">
+            <div class="box_title">Friend</div>
+            <div class="more">더보기</div>
+        </div>
+        <div class="contents_item_box oneline_contents">
+        {% for post in friend_list %}
+             <div class="contents slide">
+                <a href="/post/post_num/{{ post.id }}">
+                    <img src="{{ post.photo.url }}" name="{{ post.id }}" alt="이미지" />
+                    <span class="maintag">{{ post.content }}</span>
+                </a>
+            </div>
+        {% endfor %}
+        </div>
+    </div>
+    <div id="recent" class="main_contents">
+        <div class="contents_header">
+            <div class="box_title">Recents</div>
+        </div>
+           <div class="contents_item_box recent_contents">
+        {% for post in recent_list %}
+              <div class="contents">
+                <a href="/post/post_num/{{ post.id }}">
+                    <img src="{{ post.photo.url }}" name="{{ post.id }}" alt="이미지" />
+                    <span class="maintag">{{ post.content }}</span>
+                </a>
+            </div>
+        {% endfor %}
+        </div>
+    </div>
+</div>
+{% include "post/script_picture.html" %}
+{% endblock %}

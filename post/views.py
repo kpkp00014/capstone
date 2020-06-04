@@ -7,6 +7,8 @@ from .forms import PostForm
 from django.contrib.auth.decorators import login_required
 from django.db.models import Count
 
+#from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+
 # Create your views here.
 def post_list(request):
     
@@ -84,6 +86,7 @@ def post_edit(request, pk):
     })
 
 def post_search(request, tag):
+    tag =  get_object_or_404(Tag, name=tag)
     tag_all = Tag.objects.annotate(num_post=Count('post')).order_by('-num_post')
     
     if tag:
@@ -91,7 +94,37 @@ def post_search(request, tag):
         .prefetch_related('tag_set', 'like_user_set__profile', 'comment_set__author__profile', 
                            'author__profile__follower_user', 'author__profile__follower_user__from_user')\
         .select_related('author__profile') 
-        
-        return redirect('post:post_search')
+        return redirect('post:post_list')
+        #return render(request, 'post/post_search.html',{
+        #    'post' : post_list,
+        #})
     else:
         return redirect('post:post_list')
+    
+def post_main(request):
+    hottest_list = Post.objects.all()
+    hottest_list = hottest_list[:3]
+    friend_list = Post.objects.all()
+    friend_list = friend_list[:3]
+    """
+    paginator = Paginator(recent_list, 6)
+    page_num = request.POST.get('page')
+    
+    try:
+        recent_list = paginator.page(page_num)
+    except PageNotAnInteger:
+        recent_list = paginator.page(1)
+    except EmptyPage:
+        recent_list = paginator.page(paginator.num_pages)
+    """
+    recent_list = Post.objects.all()[:5]
+    if request.is_ajax():
+        return render(request, 'post/post_list_ajax.html',{
+            'posts': recent_list
+        })
+    
+    return render(request, 'post/post_main.html', {
+        'hottest_list': hottest_list,
+        'friend_list': friend_list,
+        'recent_list': recent_list,
+    })

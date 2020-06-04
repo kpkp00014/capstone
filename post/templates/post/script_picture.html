@@ -1,0 +1,16 @@
+<script type="text/javascript" src="https://code.jquery.com/jquery-latest.js"></script>
+<script type="text/javascript">
+    const hottest = document.querySelectorAll('#hottest .slide');
+    const friend = document.querySelectorAll('#friend .slide');
+    
+    const rand_h = Math.floor(Math.random()*hottest.length);
+    const rand_f = Math.floor(Math.random()*friend.length);
+    
+    for(i=0; i<hottest.length; i++)
+        hottest[i].style.display='none';
+    for(i=0; i<friend.length; i++)
+        friend[i].style.display='none';
+
+    hottest[rand_h].style.display='block';
+    friend[rand_f].style.display='block';
+</script>
