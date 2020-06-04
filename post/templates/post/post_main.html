@@ -11,17 +11,17 @@
             <div class="box_title">Hottest</div>
             <div class="more">더보기</div>
         </div>
-           <div class="contents_item_box oneline_contents">
-        <div class="arrow_left"></div>
-        <div class="arrow_right"></div>
-        {% for post in hottest_list %}
-            <div class="contents slide">
+        <div class="slider_box">
+            <div class="arrow_left"></div>
+            <div class="arrow_right"></div>
+            {% for post in hottest_list %}
+            <div class="contents">
                 <a href="/post/post_num/{{ post.id }}">
                     <img src="{{ post.photo.url }}" name="{{ post.id }}" alt="이미지" />
                     <span class="maintag">{{ post.content }}</span>
                 </a>
             </div>
-        {% endfor %}
+            {% endfor %}
         </div>
     </div>
     <div id="friend" class="main_contents">
@@ -29,15 +29,17 @@
             <div class="box_title">Friend</div>
             <div class="more">더보기</div>
         </div>
-        <div class="contents_item_box oneline_contents">
-        {% for post in friend_list %}
-             <div class="contents slide">
+        <div class="slider_box">
+            <div class="arrow_left"></div>
+            <div class="arrow_right"></div>
+            {% for post in hottest_list %}
+            <div class="contents">
                 <a href="/post/post_num/{{ post.id }}">
                     <img src="{{ post.photo.url }}" name="{{ post.id }}" alt="이미지" />
                     <span class="maintag">{{ post.content }}</span>
                 </a>
             </div>
-        {% endfor %}
+            {% endfor %}
         </div>
     </div>
     <div id="recent" class="main_contents">

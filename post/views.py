@@ -103,9 +103,9 @@ def post_search(request, tag):
     
 def post_main(request):
     hottest_list = Post.objects.all()
-    hottest_list = hottest_list[:3]
+    hottest_list = hottest_list[:5]
     friend_list = Post.objects.all()
-    friend_list = friend_list[:3]
+    friend_list = friend_list[:5]
     """
     paginator = Paginator(recent_list, 6)
     page_num = request.POST.get('page')
