@@ -39,10 +39,11 @@ class Post(models.Model):
         for t in tags:
             tag, tag_created = Tag.objects.get_or_create(name=t)
             self.tag_set.add(tag)
+        
     
     def __str__(self):
         return self.content
-    
+
     
 class Tag(models.Model):
     name = models.CharField(max_length=140, unique=True)

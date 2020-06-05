@@ -9,6 +9,11 @@ from django.db.models import Count
 
 #from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 
+#web crawlling
+import ssl, urllib, requests
+from bs4 import BeautifulSoup
+
+
 # Create your views here.
 def post_list(request):
     
@@ -47,9 +52,48 @@ def post_new(request):
 
 def post_num(request, post_id):
     post =  get_object_or_404(Post, pk=post_id)
+    tag = post.tag_set.all()
+    
+    if tag:
+        info = post_info(tag[0].name)
+    else:
+        info = post_info()
+            
     return render(request, 'post/post_num.html', {
         'posts' : post,
+        'info' : info
     })
+
+def post_info(tag=None):
+    if tag==None:
+        return False
+    tag = urllib.parse.quote(tag)
+    url = "https://www.10000recipe.com/recipe/list.html?q="+tag
+    req = urllib.request.Request(url)
+    with urllib.request.urlopen(req) as response:
+        html = response.read()
+    soup = BeautifulSoup(html.decode('utf-8'), 'html.parser')
+    
+    result = soup.find_all("div", "col-xs-3")
+    if len(result) > 1:
+        if len(result)>5:
+            result = result[:5]
+        else:
+            result = result[:len(result)-1]
+    else: 
+        return False
+    
+    infoData = []
+    for post in result:
+        data = {
+        'link': post.a['href'],
+        'img': post.select('a.thumbnail > img')[0]['src'],
+        'title': post.select('div.caption > h4')[0].string,
+        'author': post.select('div.caption > p')[0].string,
+    }
+        infoData.append(data)
+    return infoData
+
 
 @login_required
 def post_delete(request, pk):

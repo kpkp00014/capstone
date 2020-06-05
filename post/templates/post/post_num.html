@@ -22,5 +22,17 @@
     {% else %}
         <div class="user_info">사용자: {{ user }}</div>
     {% endif %}
+    {% if info %}
+    <div>정보가 있습니다!</div>
+    <div>
+        {% for post in info %}
+        <a href="https://10000recipe.com{{ post.link }}">
+            <img src="{{ post.img }}" alt="썸네일">
+            {{ post.title }}
+        </a>
+        <div class="author">{{ post.author }}</div>
+        {% endfor %}
+    </div>
+    {% endif %}
 </div>
 {% endblock %}
