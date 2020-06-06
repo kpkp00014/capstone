@@ -104,11 +104,10 @@ body {
   color: white;
 }
 
-.header .inner .more:hover #more_menu {
+#header .inner .more:hover #more_menu {
   display: block;
 }
-
-.header .inner .login {
+#header .inner .login {
   display: inline-block;
   background: #448855;
   border: 0.1px solid #999;
@@ -118,16 +117,20 @@ body {
   color: #fff;
 }
 
-.header .inner .login:hover {
+#header .inner .login:hover {
   color: #ddd;
   background: #559966;
 }
 
 #main_container {
   padding-top: 70px;
-  position: relative;
   display: flex;
   justify-content: center;
+}
+
+#main_contaier .inner {
+    width: 935px;
+    position: relative;
 }
 .main_contents {
   width: 1000px;
@@ -206,6 +209,9 @@ body {
     .main_contents{
         width: 93.5%;
         padding: 0% 3.25%
+    }
+    #main_container .inner {
+        width: 93.5%;
     }
 }
 

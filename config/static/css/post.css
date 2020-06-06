@@ -1,3 +1,14 @@
+#main_container .inner .contents_box{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.content {
+    max-width: 600px;
+    border: 1px solid rgba(0, 0, 0, 0.09);
+    background: #fff;
+    margin-bottom: 20px;
+}
 .main_contents .contents_header {
   display: flex;
   margin-right: 5px;
@@ -121,7 +132,113 @@
   user-select: none;
 }
 
+.content_header {
+    display: flex;
+    margin-bottom: 5px;
+}
+.content_header .profile {
+}
+.content_header .profile img {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    display: inline-block;
+}
 
+.p_container {
+    display: inline-block;
+    position: relative;
+    height: 100%;
+    width: 200px;
+}
+
+.profile_text {
+    position: absolute;
+    top: 50%;
+    transform: translatey(-50%);
+}
+.profile_text .profile_nickname {
+    font-size: 20px;
+}
+
+.profile_text .profile_id {
+    color: #888;
+    font-size: 16px;
+}
+.content_main img{
+    text-align: center;
+}
+
+.content_main img {
+    width: 600px;
+    height: 600px;
+    margin-bottom: 5px;
+}
+
+.content_main .content_text a {
+    text-decoration: none;
+    color: #3F729B;
+}
+.content_main .content_text {
+    position: relative;
+    line-height: 1.5em;
+    padding-left: 10px;
+    padding-right: 20px;
+    padding-bottom: 20px;
+    margin-bottom: 10px;
+}
+
+.content_main .content_text span {
+    position: absolute;
+    right: 5px;
+    bottom: 0;
+    color: #888;
+    font-size: 12px;
+}
+.content_info {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+.info_box {
+    background: #eee;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    display: block;
+    width: 97.5%;
+    position: relative;
+}
+.info_box table {
+    table-layout:fixed;
+}
+.info_box td:nth-child(1) {
+    width: 100px;
+    padding: 10px;
+}
+.info_box td:nth-child(2) {
+    width: calc(100% - 100px);
+    text-overflow: ellipsis;
+    overflow: hidden;
+    height: 100px;
+}
+.info_box img {
+    height: 100px;
+    width: 100px;
+    border-radius: 3px;
+}
+.info_box .title {
+    vertical-align: middle;
+    padding-left: 15px;
+    padding-right: 30px;
+    font-size: 18px;
+    color: #222;
+}
+.info_box .info_author {
+    position: absolute;
+    right: 10px;
+    bottom: 5px;
+    font-size: 12px;
+}
 @media screen and (max-width:900px){
     .arrow_left{
         left: 10px;
@@ -152,3 +269,13 @@
     }
 }
 
+@media screen and (max-width: 650px){
+    .content_main img {
+        width : 100%;
+        height: auto;
+    }
+    #main_container .inner .post_num{
+        width: 90%;
+        align-items: center;
+    }
+}

@@ -6,9 +6,9 @@ from imagekit.processors import ResizeToFill
 # Create your models here.
 
 def user_path(instance, filename):
-    from random import choices
+    from random import choice
     import string
-    arr = [choice(string.ascii_letters) for _ in range()]
+    arr = [choice(string.ascii_letters) for _ in range(8)]
     pid = ''.join(arr)
     extension = filename.split('.')[-1]
     return 'accounts/{}/{}.{}'.format(instance.user.username, pid, extension)

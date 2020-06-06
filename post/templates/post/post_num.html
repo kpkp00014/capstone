@@ -2,37 +2,56 @@
 {% load static %}
 {% load post_extras %}
 {% block head %}
-<link rel="stylesheet" href="{% static 'css/post_num.css' %}">
+<link rel="stylesheet" href="{% static 'css/post.css' %}">
 {% endblock %}
 {% block content %}
-<div class="contents">
-    <div class="title">작성자: {{ posts.author }} </div>
-    <div class="timer">{{ posts.created_at|timesince }} 전</div>
-    <img src="{{ posts.photo.url }}" name="{{ posts.pk }}" alt="이미지" />
-    <br><span class="maintag">{{ posts | add_link | safe | linebreaksbr }}</span>
-    {% if posts.author == user %}
-    <form action="{% url 'post:post_delete' posts.pk %}" method="post">
-        {% csrf_token %}
-        <input type="submit" value="삭제">
-    </form>
-    <form action="{% url 'post:post_edit' posts.pk %}" method="post">
-        {% csrf_token %}
-        <input type="submit" value="수정">
-    </form>
-    {% else %}
-        <div class="user_info">사용자: {{ user }}</div>
-    {% endif %}
-    {% if info %}
-    <div>정보가 있습니다!</div>
-    <div>
-        {% for post in info %}
-        <a href="https://10000recipe.com{{ post.link }}">
-            <img src="{{ post.img }}" alt="썸네일">
-            {{ post.title }}
-        </a>
-        <div class="author">{{ post.author }}</div>
-        {% endfor %}
+<div class="inner">
+    <div class="contents_box">
+        <div class="content">
+        <div class="content_header">
+            <div class="profile">
+                {% if posts.author.profile.picture %}
+                <img src="{{ posts.author.profile.picture.url }}" alt="프로필사진"> 
+                {% else %}
+                <img src="{% static 'imgs/logo.png' %}" alt="프로필사진">
+                {% endif %}
+                <div class="p_container">
+                    <div class="profile_text">
+                        <div class="profile_nickname">{{ posts.author.profile }}</div>
+                        <div class="profile_id">{{ posts.author.profile.user }}</div>
+                    </div>
+                </div>
+            </div>
+            <div class="button"></div>
+        </div>
+        <div class="content_main">
+            <img src="{{ posts.photo.url }}" name="{{ post.id }}" alt="이미지" />
+            <div class="content_text">
+               {{ posts | add_link | safe | linebreaksbr }}
+
+                <span>{{ posts.created_at|timesince }} 전 작성됨</span>
+            </div>
+        </div>
+        <div class="content_bottom">
+            {% if info %}
+            <div class="content_info">
+                 {% for post in info %}
+                <a class="nodeco info_box" href="https://10000recipe.com{{ post.link }}">
+                    <table>
+                        <tr>
+                            <td><img src="{{ post.img }}" alt="썸네일"></td>
+                            <td class="title">{{ post.title }}</td>
+                        </tr>
+                    </table>
+                    <span class="info_author">
+                        {{ post.author }}
+                    </span>
+                </a>
+                {% endfor %}            
+            </div>
+            {% endif %}
+        </div>
+        </div>
     </div>
-    {% endif %}
 </div>
 {% endblock %}
