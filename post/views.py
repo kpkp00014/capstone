@@ -15,7 +15,7 @@ from bs4 import BeautifulSoup
 
 
 # Create your views here.
-def post_list(request):
+def post_list(request, tag):
     
     post_list = Post.objects.all()
     
@@ -43,7 +43,7 @@ def post_new(request):
             post.save()
             post.tag_save()
             messages.info(request, '새 글이 등록되었습니다')
-            return redirect('post:post_list')
+            return redirect('post:post_main')
     else:
         form = PostForm()
     return render(request, 'post/post_new.html',{
@@ -100,19 +100,19 @@ def post_delete(request, pk):
     post = get_object_or_404(Post, pk=pk)
     if post.author != request.user or request.method =='GET':
         messages.warning(request, '잘못된 접근입니다.')
-    
+        print(messages.warning)
     if request.method == 'POST':
         post.delete()
         messages.success(request, '삭제 성공!')
     
-    return redirect('post:post_list')
+    return redirect('post:post_main')
 
 @login_required
 def post_edit(request, pk):
     post = get_object_or_404(Post, pk=pk)
     if post.author != request.user:
         messages.warning(request, '잘못된 접근입니다.')
-        return redirect('post:post_list')
+        return redirect('post:post_main')
     
     if request.method == 'POST':
         form = PostForm(request.POST, request.FILES, instance=post)
@@ -121,7 +121,7 @@ def post_edit(request, pk):
             post.tag_set.clear()
             post.tag_save()
             messages.success(request, '수정완료')
-            return redirect('post:post_list')
+            return redirect('post:post_main')
     else:
         form = PostForm(instance=post)
     return render(request, 'post/post_edit.html',{
@@ -130,20 +130,39 @@ def post_edit(request, pk):
     })
 
 def post_search(request, tag):
-    tag =  get_object_or_404(Tag, name=tag)
     tag_all = Tag.objects.annotate(num_post=Count('post')).order_by('-num_post')
     
-    if tag:
+    if Tag.objects.filter(name = tag):
         post_list = Post.objects.filter(tag_set__name__iexact=tag) \
-        .prefetch_related('tag_set', 'like_user_set__profile', 'comment_set__author__profile', 
+        .prefetch_related('tag_set', 'like_user_set__profile', 
                            'author__profile__follower_user', 'author__profile__follower_user__from_user')\
         .select_related('author__profile') 
-        return redirect('post:post_list')
+        print(post_list)
+        return render(request, 'post/post_list.html', {
+            'post_list' : post_list
+        })
         #return render(request, 'post/post_search.html',{
         #    'post' : post_list,
         #})
     else:
-        return redirect('post:post_list')
+        return redirect('post:post_main')
+    
+def post_more(request, about):
+    if about=='hottest':
+        pass
+    elif about == 'friend':
+        pass
+    elif about == 'recents':
+        post_list = Post.objects.all()
+        return render(request, 'post/post_list.html', {
+            'post_list': post_list,
+            'about': about,
+        })
+    else:
+        pass
+    return redirect('post:post_main')
+    
+    
     
 def post_main(request):
     hottest_list = Post.objects.all()

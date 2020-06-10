@@ -134,29 +134,42 @@
 
 .content_header {
     display: flex;
-    margin-bottom: 5px;
+    margin-bottom: 4px;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+    align-items: center;
 }
 .content_header .profile {
+    position: relative;
+    display: flex;
+    justify-content: center;    
+    align-items: center;
+    margin-left: 2px;
+    margin-top: 2px;
 }
 .content_header .profile img {
     width: 50px;
     height: 50px;
     border-radius: 50%;
     display: inline-block;
+    position: relative;
+}
+.content_header .button {
+    display: inline-block;
+    position: relative;
+}
+
+.content_header .button div {
+    display: inline-block;
 }
 
 .p_container {
     display: inline-block;
+    min-width: 120px;
+    margin-left: 3px;
     position: relative;
-    height: 100%;
-    width: 200px;
 }
 
-.profile_text {
-    position: absolute;
-    top: 50%;
-    transform: translatey(-50%);
-}
 .profile_text .profile_nickname {
     font-size: 20px;
 }
@@ -184,16 +197,23 @@
     line-height: 1.5em;
     padding-left: 10px;
     padding-right: 20px;
-    padding-bottom: 20px;
+    padding-bottom: 30px;
     margin-bottom: 10px;
 }
 
-.content_main .content_text span {
+.content_main .content_text span.created {
     position: absolute;
-    right: 5px;
+    right: 10px;
     bottom: 0;
     color: #888;
     font-size: 12px;
+}
+.content_main .content_text span.like {
+    position: absolute;
+    left: 10px;
+    bottom: 0;
+    color: #888;
+    font-size: 14px;
 }
 .content_info {
     display: flex;

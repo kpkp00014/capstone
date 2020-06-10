@@ -9,27 +9,64 @@
     <div class="contents_box">
         <div class="content">
         <div class="content_header">
-            <div class="profile">
-                {% if posts.author.profile.picture %}
-                <img src="{{ posts.author.profile.picture.url }}" alt="프로필사진"> 
-                {% else %}
-                <img src="{% static 'imgs/logo.png' %}" alt="프로필사진">
-                {% endif %}
-                <div class="p_container">
-                    <div class="profile_text">
-                        <div class="profile_nickname">{{ posts.author.profile }}</div>
-                        <div class="profile_id">{{ posts.author.profile.user }}</div>
+            <a class="nodeco" href = "/accounts/profile/{{ posts.author.profile.id }}">
+                <div class="profile">
+                    {% if posts.author.profile.picture %}
+                    <img src="{{ posts.author.profile.picture.url }}" alt="프로필사진"> 
+                    {% else %}
+                    <img src="{% static 'imgs/logo.png' %}" alt="프로필사진">
+                    {% endif %}
+                    <div class="p_container">
+                        <div class="profile_text">
+                            <div class="profile_nickname">{{ posts.author.profile }}</div>
+                            <div class="profile_id">{{ posts.author.profile.user }}</div>
+                        </div>
                     </div>
                 </div>
+            </a>
+            <div class="button">
+            {% if user.is_authenticated %}
+            {% if posts.author != user %}
+                {% if posts.author.profile in user.profile.get_following %}
+                    <div>팔로잉</div>
+                {% elif posts.author.profile in user.profile.get_blacklist %}
+                    <div>차단됨</div>
+                {% else %}
+                    <div>팔로우</div>
+                    <div>차단</div>
+                {% endif %}
+                {% if user in posts.like_user_set.all %}
+                <div 
+                     class="like_icon on"
+                     name = "posts.pk"
+                     data-name= "like">
+                    따봉!
+                </div>
+                {% else %}
+                <div 
+                     class="like_icon"
+                     name = "posts.pk"
+                     data-name= "like">
+                    좋아요
+                </div>
+                {% endif %}
+                <div>북마크</div>
+            {% else %}
+                <a class="nodeco" href="/post/edit/{{posts.id}}"><div>수정</div></a>
+                <form class="post-delete-form" action="{% url 'post:post_delete' posts.pk %}" method="POST">
+                    {% csrf_token %}
+                    <input type="submit" class="post-delete" value="삭제">
+                </form>
+            {% endif %}
+            {% endif %}
             </div>
-            <div class="button"></div>
         </div>
         <div class="content_main">
             <img src="{{ posts.photo.url }}" name="{{ post.id }}" alt="이미지" />
             <div class="content_text">
                {{ posts | add_link | safe | linebreaksbr }}
-
-                <span>{{ posts.created_at|timesince }} 전 작성됨</span>
+                <span class="like">♡{{ posts.like_count }}</span>
+                <span class="created">{{ posts.created_at|timesince }} 전 작성됨</span>
             </div>
         </div>
         <div class="content_bottom">

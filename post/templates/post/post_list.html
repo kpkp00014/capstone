@@ -3,45 +3,17 @@
 {% load post_extras %}
 {% block content %}
 <div class="inner">
-    <div id="hottest" class="main_contents">
+    <div class="main_contents">
         <div class="contents_header">
-            <div class="box_title">Hottest</div>
-            <div class="more">더보기</div>
-        </div>
-           <div class="contents_item_box oneline_contents">
-        {% for post in posts %}
-            <div class="contents">
-                <a href="/post/post_num/{{ post.id }}">
-                    <img src="{{ post.photo.url }}" name="{{ post.id }}" alt="이미지" />
-                    <span class="maintag">{{ post.content }}</span>
-                </a>
+            <div class="box_title">
+                {% if about == 'recents' %}
+                Recents
+                {% endif %}
             </div>
-        {% endfor %}
-        </div>
-    </div>
-    <div id="recommend" class="main_contents">
-        <div class="contents_header">
-            <div class="box_title">Recommend</div>
-            <div class="more">더보기</div>
         </div>
         <div class="contents_item_box oneline_contents">
-        {% for post in posts %}
-             <div class="contents">
-                <a href="/post/post_num/{{ post.id }}">
-                    <img src="{{ post.photo.url }}" name="{{ post.id }}" alt="이미지" />
-                    <span class="maintag">{{ post.content }}</span>
-                </a>
-            </div>
-        {% endfor %}
-        </div>
-    </div>
-    <div id="recent" class="main_contents">
-        <div class="contents_header">
-            <div class="box_title">Recents</div>
-        </div>
-           <div class="contents_item_box recent_contents">
-        {% for post in posts %}
-              <div class="contents">
+        {% for post in post_list %}
+            <div class="contents">
                 <a href="/post/post_num/{{ post.id }}">
                     <img src="{{ post.photo.url }}" name="{{ post.id }}" alt="이미지" />
                     <span class="maintag">{{ post.content }}</span>

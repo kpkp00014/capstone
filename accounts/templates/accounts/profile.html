@@ -1,0 +1,17 @@
+{% extends "post/layout.html" %}
+{% load static %}
+%}
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/profile.css' %}">
+{% endblock %}
+{% block content %}
+<div class="inner">
+    <div id="main_container">
+        <div>이름 : {{user}}</div>
+        <div>아이디 : {{user.user}}</div>
+        <div>팔로잉 : {{user.following_count}}</div>
+        <div>팔로워 : {{user.follower_count}}</div>
+        <div>블랙리스트 : {{user.blacklist_count}}</div>
+    </div>
+</div>
+{% endblock %}

@@ -27,6 +27,11 @@ class Post(models.Model):
     created_at = models.DateTimeField(auto_now_add = True)
     updated_at = models.DateTimeField(auto_now = True)
     
+    like_user_set = models.ManyToManyField(settings.AUTH_USER_MODEL,
+                                          blank=True,
+                                          related_name = 'like_user_set',
+                                          through = 'Like')
+    
     class Meta:
         ordering = ['-created_at']
         
@@ -39,7 +44,10 @@ class Post(models.Model):
         for t in tags:
             tag, tag_created = Tag.objects.get_or_create(name=t)
             self.tag_set.add(tag)
-        
+    
+    @property
+    def like_count(self):
+        return self.like_user_set.count()
     
     def __str__(self):
         return self.content
@@ -50,3 +58,14 @@ class Tag(models.Model):
     
     def __str__(self):
         return self.name
+    
+class Like(models.Model):
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    post = models.ForeignKey(Post, on_delete=models.CASCADE)
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+    
+    class Meta:
+        unique_together = (
+            ('user', 'post')
+        )

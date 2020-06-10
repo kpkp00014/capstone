@@ -1,8 +1,9 @@
 from django.shortcuts import render
-from django.shortcuts import redirect, render
+from django.shortcuts import redirect, render, get_object_or_404
 from django.contrib.auth import logout as django_logout
 from django.contrib.auth import authenticate, login
 from .forms import SignupForm, LoginForm
+from .models import Profile
 
 # Create your views here.
 def signup(request):
@@ -40,3 +41,11 @@ def login_check(request):
 def logout(request):
     django_logout(request)
     return redirect('/')
+
+
+def user_profile(request, user):
+    user = get_object_or_404(Profile, pk=user)
+    
+    return render(request, 'accounts/profile.html', {
+        'user': user,
+    })
