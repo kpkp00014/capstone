@@ -45,6 +45,12 @@ class Profile(models.Model):
                                 through = 'Follow',
                                 symmetrical = False,
                                 )
+    def has_scrap(self, post):
+        if post in self.scraped_set:
+            return scraped_set.filter(post=post)
+        else:
+            return False
+    
     def __str__(self):
         return self.nickname    
         
@@ -110,3 +116,6 @@ class Scrap(models.Model):
         unique_together = (
             ('user', 'post')
         )
+        
+    def __str__(self):
+        return self.content

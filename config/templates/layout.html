@@ -27,7 +27,7 @@
                     <div class="more">
                         <ul id="more_menu">
                             {% if user.is_authenticated  %}
-                            <li><a href="" class="nodeco">마이페이지</a></li>
+                            <li><a href="/accounts/profile/{{user.id}}/main" class="nodeco">마이페이지</a></li>
                             <li><a href="/accounts/logout" class="nodeco">로그아웃</a></li>
                             <li><a href="/post/new" class="nodeco">새 글</a></li>
                             {% else %}

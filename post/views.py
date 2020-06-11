@@ -2,9 +2,11 @@ from django.contrib.auth import get_user_model
 from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib import messages
 from .models import Post, Tag
+from accounts.models import Scrap
 from .forms import PostForm
 
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.http import require_POST
 from django.db.models import Count
 
 #from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
@@ -13,6 +15,8 @@ from django.db.models import Count
 import ssl, urllib, requests
 from bs4 import BeautifulSoup
 
+import json
+from django.http import HttpResponse
 
 # Create your views here.
 def post_list(request, tag):
@@ -58,10 +62,19 @@ def post_num(request, post_id):
         info = post_info(tag[0].name)
     else:
         info = post_info()
-            
+    user = request.user
+    if user.is_authenticated:
+        scrap = user.profile.scrap_set
+        if scrap.filter(post=post):
+            scrap = scrap.filter(post=post)[0]
+        else:
+            scrap = None
+    else:
+        scrap = None
     return render(request, 'post/post_num.html', {
         'posts' : post,
-        'info' : info
+        'info' : info,
+        'scrap': scrap,
     })
 
 def post_info(tag=None):
@@ -133,7 +146,7 @@ def post_search(request, tag):
     tag_all = Tag.objects.annotate(num_post=Count('post')).order_by('-num_post')
     
     if Tag.objects.filter(name = tag):
-        post_list = Post.objects.filter(tag_set__name__iexact=tag) \
+        post_list = Post.objects.filter(tag_set__name__iexact=tag)\
         .prefetch_related('tag_set', 'like_user_set__profile', 
                            'author__profile__follower_user', 'author__profile__follower_user__from_user')\
         .select_related('author__profile') 
@@ -141,9 +154,6 @@ def post_search(request, tag):
         return render(request, 'post/post_list.html', {
             'post_list' : post_list
         })
-        #return render(request, 'post/post_search.html',{
-        #    'post' : post_list,
-        #})
     else:
         return redirect('post:post_main')
     
@@ -151,16 +161,20 @@ def post_more(request, about):
     if about=='hottest':
         pass
     elif about == 'friend':
-        pass
+        if not request.user:
+            return redirect('post:post_main')
+        post_list = Post.objects.filter()\
+        .prefetch_related()\
+        .select_related('post__follow')
     elif about == 'recents':
         post_list = Post.objects.all()
-        return render(request, 'post/post_list.html', {
+    else:
+        return redirect('post:post_main')
+    return render(request, 'post/post_list.html', {
             'post_list': post_list,
             'about': about,
         })
-    else:
-        pass
-    return redirect('post:post_main')
+    
     
     
     
@@ -191,3 +205,64 @@ def post_main(request):
         'friend_list': friend_list,
         'recent_list': recent_list,
     })
+
+@login_required
+@require_POST
+def post_like(request):
+    pk = request.POST.get('pk', None)
+    post = get_object_or_404(Post, pk=pk)
+    post_like, post_like_created = post.like_set.get_or_create(user=request.user)
+    
+    if not post_like_created:
+        post_like.delete()
+        message = '좋아요 삭제'
+    else:
+        message = "좋아요"
+
+    context = {
+        'like_count' : post.like_count,
+        'message' : message,
+    }
+    return HttpResponse(json.dumps(context), content_type="application/json")
+
+@login_required
+@require_POST
+def post_scrap(request):
+    pk = request.POST.get('pk', None)
+    post = get_object_or_404(Post, pk=pk)
+    user = request.user.profile
+    if(user.user == post.author):
+        return HttpResponse("<script>alert('잘못된 요청입니다');</script>")
+    content = request.POST.get('content', None)
+    s, s_created = Scrap.objects.get_or_create(post=post, user=user)
+    if not s_created:
+        s.content = content
+        s.save()
+        message = "스크랩 수정"
+    else:
+        s.content = content
+        s.save()
+        message = "스크랩 등록 성공"
+    context = {
+        'message' : message
+    }
+    return HttpResponse(json.dumps(context), content_type="application/json")
+
+@login_required
+@require_POST
+def post_scrap_delete(request):
+    post = request.POST.get('pk')
+    user = request.user.profile
+    scrap = Scrap.objects.filter(post=post, user=user)
+    scrap.delete()
+    context = {
+        'message' : '삭제 성공'
+    }
+    return HttpResponse(json.dumps(context), content_type="application/json")
+    if post.author != request.user or request.method =='GET':
+        messages.warning(request, '잘못된 접근입니다.')
+        print(messages.warning)
+    if request.method == 'POST':
+        post.delete()
+        messages.success(request, '삭제 성공!')
+    

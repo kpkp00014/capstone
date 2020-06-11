@@ -6,12 +6,105 @@
 {% endblock %}
 {% block content %}
 <div class="inner">
-    <div id="main_container">
-        <div>이름 : {{user}}</div>
-        <div>아이디 : {{user.user}}</div>
-        <div>팔로잉 : {{user.following_count}}</div>
-        <div>팔로워 : {{user.follower_count}}</div>
-        <div>블랙리스트 : {{user.blacklist_count}}</div>
-    </div>
-</div>
+        <div id="profile_container">
+          <div class="profile_box">
+            <div class="flex_block">
+              <a href="/accounts/profile/{{target_user.id}}/main">
+                <div id="profile_img">
+                  {% if target_user.picture %}
+                  <img src="{{ target_user.picture.url }}" alt="프로필사진"> 
+                  {% else %}
+                  <img src="{% static 'imgs/logo.png' %}" alt="프로필사진">
+                  {% endif %}
+                </div>
+              </a>
+              <div class="vertical_block">
+                <div id="profile_text">
+                  <div class="nickname">{{target_user}}</div>
+                  <div class="id">{{target_user.user}}</div>
+                </div>
+                <div id="profile_about">{{ target_user.about }}</div>
+              </div>
+            </div>
+            <div class="flex_block2">
+              <div id="friend_box">
+                <div class="friend">
+                  <div class="header">팔로잉</div>
+                  <div class="contents">
+                      <a href="/accounts/profile/{{target_user.id}}/following">
+                          {{ target_user.following_count }}명
+                      </a></div>
+                </div>
+                <div class="friend">
+                  <div class="header">팔로워</div>
+                  <div class="contents">
+                      <a href="/accounts/profile/{{target_user.id}}/follower">
+                          {{ target_user.follower_count }}명
+                      </a></div>
+                </div>
+                <div class="friend">
+                  <div class="header">차단</div>
+                  <div class="contents">
+                      <a href="/accounts/profile/{{target_user.id}}/blacklist">
+                          {{ target_user.blacklist_count }}명
+                      </a></div>
+                </div>
+              </div>
+              <div id="menu_box">
+                <ul>
+                  {% ifequal user  target_user.user %}
+                  <a href="/accounts/profile/{{target_user.id}}/like"><li>좋아요</li></a>
+                  <a href="/accounts/profile/{{target_user.id}}/scrap"><li>스크랩</li></a>
+                  {% else %}
+                  {% if target_user in user.get_follower %}
+                  <a href="#"><li>팔로잉</li></a>
+                  {% elif target_user in user.get_blacklist %}
+                  <a href="#"><li>차단중</li></a>
+                  {% else %}
+                  <a href="#"><li>팔로우</li></a>
+                  <a href="#"><li>차단하기</li></a>
+                  {% endif %} 
+                  {% endifequal %}  
+                </ul>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div id="profile_contents">
+          <div class="header">{{target_user}}님의 {{title}}</div>
+          <div class="container">
+            <!--게시물-->
+            {% if post_list %}
+            {% for post in post_list %}
+            <a href = "/post/post_num/{{post.id}}/" class="nodeco">
+                <div class="contents">
+                  <img src="{{ post.photo.url }}" alt="사진" />
+                  <div class="text">
+                      {{post.content}}
+                  </div>
+                </div>
+            </a>
+            {% endfor %}
+            {% endif %}
+            <!--유저-->
+            {% if user_list %}
+            {% for user in user_list %}
+            <a href="/accounts/profile/{{user.id}}/main" class="nodeco">
+              <div class="user_list">
+                {% if user.picture %}
+                <img src="{{ user.picture.url }}" alt="프로필사진"> 
+                {% else %}
+                <img src="{% static 'imgs/logo.png' %}" alt="프로필사진">
+                {% endif %}
+                <div class="text">
+                  <div class="nickname">{{user.nickname}}</div>
+                  <div class="id">{{user.user}}</div>
+                </div>
+              </div>
+            </a>
+            {% endfor %}
+            {% endif %}
+          </div>
+        </div>
+      </div>
 {% endblock %}

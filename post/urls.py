@@ -11,4 +11,9 @@ urlpatterns = [
     path('post_num/<int:post_id>/', post_num, name='post_num'),
     path('more/<str:about>', post_more, name='post_list'),
     path('explore/tags/<str:tag>/', post_search, name='post_list'),
+    
+    
+    path('like', post_like, name='post_like'),
+    path('scrap', post_scrap, name='post_scrap'),
+    path('scrap_delete', post_scrap_delete, name='post_scrap_delete')
 ]

@@ -1,74 +1,70 @@
- <script
-        type="text/javascript"
-        src="https://code.jquery.com/jquery-latest.js"
-      ></script>
-      <script type="text/javascript">
-        const hottest = document.querySelectorAll(
-          "#hottest .slider_box .contents"
-        );
-        const friend = document.querySelectorAll(
-          "#friend .slider_box .contents"
-        );
-        let hottest_index = Math.floor(Math.random() * hottest.length);
-        let friend_index = Math.floor(Math.random() * friend.length);
-        function setImage(target, index) {
-          const length = target.length;
-          for (var i = 0; i < length; i++) {
-            target[i].classList.add("hidden");
-            target[i].classList.remove("center", "left", "right");
-          }
+<script type="text/javascript">
+    const hottest = document.querySelectorAll(
+      "#hottest .slider_box .contents"
+    );
+    const friend = document.querySelectorAll(
+      "#friend .slider_box .contents"
+    );
+    let hottest_index = Math.floor(Math.random() * hottest.length);
+    let friend_index = Math.floor(Math.random() * friend.length);
+    function setImage(target, index) {
+      const length = target.length;
+      for (var i = 0; i < length; i++) {
+        target[i].classList.add("hidden");
+        target[i].classList.remove("center", "left", "right");
+      }
 
-          const left = (index + length - 1) % length;
-          const center = index;
-          const right = (index + 1) % length;
+      const left = (index + length - 1) % length;
+      const center = index;
+      const right = (index + 1) % length;
 
-          target[left].classList.remove("hidden");
-          target[center].classList.remove("hidden");
-          target[right].classList.remove("hidden");
-          target[left].classList.add("left");
-          target[center].classList.add("center");
-          target[right].classList.add("right");
+      target[left].classList.remove("hidden");
+      target[center].classList.remove("hidden");
+      target[right].classList.remove("hidden");
+      target[left].classList.add("left");
+      target[center].classList.add("center");
+      target[right].classList.add("right");
+    }
+    setImage(hottest, hottest_index);
+    setImage(friend, friend_index);
+
+    const arrow_left = document.querySelectorAll(".arrow_left");
+    const arrow_right = document.querySelectorAll(".arrow_right");
+
+    function arrow_event(e) {
+      id = e.target.parentNode.parentNode.id;
+      way = e.target.classList[0];
+
+      if (way === "arrow_right") {
+        if (id === "hottest") {
+          hottest_index =
+            (hottest_index + hottest.length - 1) % hottest.length;
+          setImage(hottest, hottest_index);
+        } else {
+          friend_index = (friend_index + friend.length - 1) % friend.length;
+          setImage(friend, friend_index);
         }
-        setImage(hottest, hottest_index);
-        setImage(friend, friend_index);
-
-        const arrow_left = document.querySelectorAll(".arrow_left");
-        const arrow_right = document.querySelectorAll(".arrow_right");
-
-        function arrow_event(e) {
-          id = e.target.parentNode.parentNode.id;
-          way = e.target.classList[0];
-
-          if (way === "arrow_right") {
-            if (id === "hottest") {
-              hottest_index =
-                (hottest_index + hottest.length - 1) % hottest.length;
-              setImage(hottest, hottest_index);
-            } else {
-              friend_index = (friend_index + friend.length - 1) % friend.length;
-              setImage(friend, friend_index);
-            }
-          } else if (way === "arrow_left") {
-            if (id === "hottest") {
-              hottest_index = (hottest_index + 1) % hottest.length;
-              setImage(hottest, hottest_index);
-            } else {
-              friend_index = (friend_index + 1) % friend.length;
-              setImage(friend, friend_index);
-            }
-          } else return;
+      } else if (way === "arrow_left") {
+        if (id === "hottest") {
+          hottest_index = (hottest_index + 1) % hottest.length;
+          setImage(hottest, hottest_index);
+        } else {
+          friend_index = (friend_index + 1) % friend.length;
+          setImage(friend, friend_index);
         }
+      } else return;
+    }
 
-        arrow_left[0].addEventListener("click", function (e) {
-          arrow_event(e);
-        });
-        arrow_left[1].addEventListener("click", function (e) {
-          arrow_event(e);
-        });
-        arrow_right[0].addEventListener("click", function (e) {
-          arrow_event(e);
-        });
-        arrow_right[1].addEventListener("click", function (e) {
-          arrow_event(e);
-        });
-      </script>
+    arrow_left[0].addEventListener("click", function (e) {
+      arrow_event(e);
+    });
+    arrow_left[1].addEventListener("click", function (e) {
+      arrow_event(e);
+    });
+    arrow_right[0].addEventListener("click", function (e) {
+      arrow_event(e);
+    });
+    arrow_right[1].addEventListener("click", function (e) {
+      arrow_event(e);
+    });
+  </script>

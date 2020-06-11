@@ -1,0 +1,23 @@
+<script>
+    const modal = document.getElementById('scrap_modal');
+    const scrap_icon = document.getElementById('scrap_icon');
+    const span = modal.querySelector('.close');
+    const textarea = modal.querySelector('#scrap_content');
+    
+    scrap_icon.onclick = function() {
+        modal.style.display = "block";
+    }
+    span.onclick = function() {
+        modal.style.display = 'none';
+    }
+    window.onclick = function(event) {
+        if (event.target == modal) {
+            modal.style.display = 'none';
+        }
+    }
+    textarea.addEventListener('input', function(e) {
+        if(textarea.value.length >= 200){
+            alert('200자 까지만 입력 가능합니다');
+        }
+    })
+</script>

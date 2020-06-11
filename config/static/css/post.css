@@ -1,3 +1,45 @@
+#like_icon {
+    background: url(../imgs/like_icon.png);
+}
+#like_icon.on {
+    background: url(../imgs/like_icon_on.png);
+}
+#scrap_icon {
+    background: url(../imgs/scrap_icon.png);
+}
+#scrap_icon.on {
+    background: url(../imgs/scrap_icon_on.png);
+}
+#follow_icon {
+    background: url(../imgs/follow_icon.png);
+}
+#follow_icon.on {
+    background: url(../imgs/follow_icon_on.png);
+}
+#blacklist_icon {
+    background: url(../imgs/blacklist_icon.png);
+    background-size: contain;
+}
+#blacklist_icon.on {
+    background: url(../imgs/blacklist_icon_on.png);
+    background-size: contain;
+}
+
+#post-edit {
+    text-align: center;
+    line-height: 50px;
+    font-size: 18px;
+}
+#post-delete-form >input {
+    cursor: pointer;
+    display: inline-block;
+    width: 50px;
+    height: 50px;
+    background: transparent;
+    border: none;
+    font-size: 40px;
+    line-height: 50px;
+}
 #main_container .inner .contents_box{
     display: flex;
     flex-direction: column;
@@ -155,12 +197,20 @@
     position: relative;
 }
 .content_header .button {
-    display: inline-block;
+    display: flex;
+    justify-content: space-between;
     position: relative;
 }
 
 .content_header .button div {
     display: inline-block;
+    width: 50px;
+    height: 50px;
+    
+}
+
+.content_header .button .scrap_icon.on {
+    background-color: blue;
 }
 
 .p_container {
@@ -259,6 +309,88 @@
     bottom: 5px;
     font-size: 12px;
 }
+
+
+
+/*modal 창 */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1;
+    left:0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0,0,0,0.4);
+}
+.modal-content {
+    position: relative;
+    width: 375px;
+    background-color: #fefefe; 
+    margin: 20% auto; 
+    padding: 0;
+    border: 1px solid #888;
+    box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+    animation-name: animatetop;
+    animation-duration: 0.4s
+}
+
+@keyframes animatetop {
+    from {top: -300px; opacity:0}
+    to {top:0; opacity:1}
+}
+.modal-header {
+    height: 30px;
+    padding: 2px 16px;
+    background-color: #5cb85c;
+    color: white;
+}
+.modal-header p {
+    line-height: 34px;
+}
+.modal-body {
+    padding: 2px 16px;
+    height: 160px;
+    position: relative;
+}
+#scrap_content {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    resize: none;
+    border: none;
+    outline: none;
+    word-break: break-all;
+    background: transparent;
+}
+.modal-footer {
+    padding : 2px 16px;
+    background-color : #5cb85c;
+    color: white;
+    height: 30px;
+}
+.modal-footer button {
+    background: gray;
+    border: none;
+    border-radius: 3px;
+    line-height: 30px;
+}
+.close {
+    color: #aaa;
+    float: right;
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.close:hover,
+.close:focus {
+    color: black;
+    text-decoration: none;
+    cursor: pointer;
+}
+
 @media screen and (max-width:900px){
     .arrow_left{
         left: 10px;

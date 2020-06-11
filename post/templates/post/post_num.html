@@ -9,7 +9,7 @@
     <div class="contents_box">
         <div class="content">
         <div class="content_header">
-            <a class="nodeco" href = "/accounts/profile/{{ posts.author.profile.id }}">
+            <a class="nodeco" href = "/accounts/profile/{{ posts.author.profile.id }}/main">
                 <div class="profile">
                     {% if posts.author.profile.picture %}
                     <img src="{{ posts.author.profile.picture.url }}" alt="프로필사진"> 
@@ -28,34 +28,30 @@
             {% if user.is_authenticated %}
             {% if posts.author != user %}
                 {% if posts.author.profile in user.profile.get_following %}
-                    <div>팔로잉</div>
+                <div id="follow_icon" class="on" name = "{{ posts.author.profile.id}}" data-name="follow"></div>
+                <div id="blacklist_icon" class="hidden" name = "{{ posts.author.profile.id}}" data-name="black"></div>
                 {% elif posts.author.profile in user.profile.get_blacklist %}
-                    <div>차단됨</div>
+                <div id="follow_icon" class="hidden" name = "{{ posts.author.profile.id}}" data-name="follow"></div>
+                <div id="blacklist_icon" class="on" name = "{{ posts.author.profile.id}}" data-name="black"></div>
                 {% else %}
-                    <div>팔로우</div>
-                    <div>차단</div>
+                <div id="follow_icon" name = "{{ posts.author.profile.id}}" data-name="follow"></div>
+                <div id="blacklist_icon" name = "{{ posts.author.profile.id}}" data-name="black"></div>
                 {% endif %}
                 {% if user in posts.like_user_set.all %}
-                <div 
-                     class="like_icon on"
-                     name = "posts.pk"
-                     data-name= "like">
-                    따봉!
-                </div>
+                <div id="like_icon" class="on" name = "{{posts.pk}}" data-name= "like"></div>
                 {% else %}
-                <div 
-                     class="like_icon"
-                     name = "posts.pk"
-                     data-name= "like">
-                    좋아요
-                </div>
+                <div id="like_icon" name = "{{posts.pk}}" data-name= "like"></div>
                 {% endif %}
-                <div>북마크</div>
+                {% if scrap %}
+                <div id="scrap_icon" class="on"></div>
+                {% else %}
+                <div id="scrap_icon"></div>
+                {% endif %}
             {% else %}
-                <a class="nodeco" href="/post/edit/{{posts.id}}"><div>수정</div></a>
-                <form class="post-delete-form" action="{% url 'post:post_delete' posts.pk %}" method="POST">
+                <a class="nodeco" href="/post/edit/{{posts.id}}"><div id="post-edit">수정</div></a>
+                <form id="post-delete-form" action="{% url 'post:post_delete' posts.pk %}" method="POST">
                     {% csrf_token %}
-                    <input type="submit" class="post-delete" value="삭제">
+                    <input type="submit" class="post-delete" value="&times" >
                 </form>
             {% endif %}
             {% endif %}
@@ -89,6 +85,52 @@
             {% endif %}
         </div>
         </div>
+        {% if user.is_authenticated %}
+        {% if posts.author != user %}
+        <div id="scrap_modal" class="modal">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <span class="close">&times;</span>
+                    <p>스크랩</p>
+                </div>
+                <div class="modal-body">
+                    {% if scrap %}
+                    <textarea
+                              id="scrap_content" 
+                              placeholder = "스크랩에 할 메모를 입력해 주세요"
+                              name="{{post.id}}"
+                              cols="45"
+                              rows="10"
+                              maxlength="200"
+                              autofocus
+                              >{{scrap}}</textarea>
+                    {% else %}
+                    <textarea
+                              id="scrap_content" 
+                              placeholder = "스크랩에 할 메모를 입력해 주세요"
+                              name="{{post.id}}"
+                              cols="45"
+                              rows="10"
+                              maxlength="200"
+                              autofocus
+                              ></textarea>
+                    {% endif %}
+                </div>
+                <div class="modal-footer" align="right">
+                    {% if not scrap %}
+                    <button name = "{{posts.pk}}" data-name= "scrap">스크랩</button>
+                    {% else %}
+                    <button name = "{{posts.pk}}" data-name= "scrap-edit">수정</button>
+                    <button name = "{{posts.pk}}" data-name= "scrap-delete">삭제</button>
+                    {% endif %}
+                </div>
+            </div>
+        
+        {% include "post/script_scrap.html" %}
+        </div>
+        {% endif %}
+        {% endif %}
     </div>
 </div>
+{% include "post/script_ajax.html" %}
 {% endblock %}
