@@ -20,14 +20,27 @@
                         <div class="logo_icon"></div>
                         </a>
                     </h1>
-                    <div id="search_box">
+                    <form id="search_box">
                         <input type="text" class="search_input" placeholder="#검색" />
-                        <div class="fake_box">#검색</div>
-                    </div>
+                        <div class="fake_box">
+                            #검색
+                        </div>
+                    </form>
                     <div class="more">
+                        {% if user.is_authenticated %}
+                            {% if user.profile.picture %}
+                            <img src="{{ user.profile.picture.url }}" alt="프로필사진"> 
+                            {% else %}
+                            <img src="{% static 'imgs/default_profile.png' %}">
+                            {% endif %}
+                        {% else %}
+                            <img src = "{% static 'imgs/more.png' %}">
+                        {% endif %}
                         <ul id="more_menu">
                             {% if user.is_authenticated  %}
-                            <li><a href="/accounts/profile/{{user.id}}/main" class="nodeco">마이페이지</a></li>
+                            <li><a href="/accounts/profile/{{user.profile.id}}/main" class="nodeco">
+                                마이페이지
+                            </a></li>
                             <li><a href="/accounts/logout" class="nodeco">로그아웃</a></li>
                             <li><a href="/post/new" class="nodeco">새 글</a></li>
                             {% else %}
@@ -49,4 +62,14 @@
             {% endblock %}
         </section>
     </body>
+    <script>
+        search = document.querySelector('#search_box');
+        search.addEventListener('submit', function(e){
+            e.preventDefault()
+            console.log('클릭')
+            value = document.querySelector('.search_input');
+            value = value.value;
+            window.location.href = '/post/explore/tags/'+value;
+        })
+    </script>
 </html>

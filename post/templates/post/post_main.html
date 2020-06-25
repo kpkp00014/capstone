@@ -9,33 +9,15 @@
     <div id="hottest" class="main_contents">
         <div class="contents_header">
             <div class="box_title">Hottest</div>
-            <a href="/post/more/recents"><div class="more">더보기</div></a>
+            <a href="/post/more/hottest"><div class="more">더보기</div></a>
         </div>
         <div class="slider_box">
             <div class="arrow_left"></div>
             <div class="arrow_right"></div>
             {% for post in hottest_list %}
             <div class="contents">
-                <a href="/post/post_num/{{ post.id }}">
-                    <img src="{{ post.photo.url }}" name="{{ post.id }}" alt="이미지" />
-                    <span class="maintag">{{ post.content }}</span>
-                </a>
-            </div>
-            {% endfor %}
-        </div>
-    </div>
-    <div id="friend" class="main_contents">
-        <div class="contents_header">
-            <div class="box_title">Friend</div>
-            <a href="/post/more/recents"><div class="more">더보기</div></a>
-        </div>
-        <div class="slider_box">
-            <div class="arrow_left"></div>
-            <div class="arrow_right"></div>
-            {% for post in hottest_list %}
-            <div class="contents">
-                <a href="/post/post_num/{{ post.id }}">
-                    <img src="{{ post.photo.url }}" name="{{ post.id }}" alt="이미지" />
+                <a href="/post/post_num/{{ post.post }}">
+                    <img src="/media/{{ post.url }}" name="{{ post }}" alt="이미지" />
                     <span class="maintag">{{ post.content }}</span>
                 </a>
             </div>
@@ -45,18 +27,42 @@
     <div id="recent" class="main_contents">
         <div class="contents_header">
             <div class="box_title">Recents</div>
+            <a href="/post/more/recents"><div class="more">더보기</div></a>
         </div>
-           <div class="contents_item_box recent_contents">
-        {% for post in recent_list %}
-              <div class="contents">
+        <div class="slider_box">
+            <div class="arrow_left"></div>
+            <div class="arrow_right"></div>
+            {% for post in recent_list %}
+            <div class="contents">
                 <a href="/post/post_num/{{ post.id }}">
                     <img src="{{ post.photo.url }}" name="{{ post.id }}" alt="이미지" />
                     <span class="maintag">{{ post.content }}</span>
                 </a>
             </div>
-        {% endfor %}
+            {% endfor %}
         </div>
     </div>
+	{% if post_list %}
+    <div id="friend" class="main_contents">
+        <div class="contents_header">
+            <div class="box_title">Friends</div>
+        </div>
+           <div class="contents_item_box recent_contents">
+        {% for post in post_list %}
+              <div class="contents">
+                <a href="/post/post_num/{{ post.id }}">
+                    <img src="{{ post.photo.url }}" name="{{ post.id }}" alt="이미지" />
+                    <span class="maintag">{{ post.content }}</span>
+                </a>
+              </div>
+        {% endfor %}
+		    <div id="post_list_ajax"></div>
+			<input type="hidden" id="page" value="2" />
+        </div>
+		{% include "post/script_infinite_ajax.html" %}
+    </div>
+	{% endif %}
 </div>
 {% include "post/script_picture.html" %}
+
 {% endblock %}

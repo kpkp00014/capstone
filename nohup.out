@@ -1,0 +1,191 @@
+ * Starting PostgreSQL 10 database server
+   ...done.
+Performing system checks...
+
+System check identified no issues (0 silenced).
+June 18, 2020 - 15:42:13
+Django version 2.1, using settings 'config.settings'
+Starting development server at http://0:80/
+Quit the server with CONTROL-C.
+Performing system checks...
+
+System check identified no issues (0 silenced).
+June 25, 2020 - 22:24:29
+Django version 2.1, using settings 'config.settings'
+Starting development server at http://0:80/
+Quit the server with CONTROL-C.
+Performing system checks...
+
+System check identified no issues (0 silenced).
+June 25, 2020 - 22:24:44
+Django version 2.1, using settings 'config.settings'
+Starting development server at http://0:80/
+Quit the server with CONTROL-C.
+Watching for file changes with StatReloader
+Exception in thread django-main-thread:
+Traceback (most recent call last):
+  File "/usr/local/lib/python3.7/threading.py", line 926, in _bootstrap_inner
+    self.run()
+  File "/usr/local/lib/python3.7/threading.py", line 870, in run
+    self._target(*self._args, **self._kwargs)
+  File "/usr/local/lib/python3.7/site-packages/django/utils/autoreload.py", line 54, in wrapper
+    fn(*args, **kwargs)
+  File "/usr/local/lib/python3.7/site-packages/django/core/management/commands/runserver.py", line 109, in inner_run
+    autoreload.raise_last_exception()
+  File "/usr/local/lib/python3.7/site-packages/django/utils/autoreload.py", line 77, in raise_last_exception
+    raise _exception[1]
+  File "/usr/local/lib/python3.7/site-packages/django/core/management/__init__.py", line 337, in execute
+    autoreload.check_errors(django.setup)()
+  File "/usr/local/lib/python3.7/site-packages/django/utils/autoreload.py", line 54, in wrapper
+    fn(*args, **kwargs)
+  File "/usr/local/lib/python3.7/site-packages/django/__init__.py", line 24, in setup
+    apps.populate(settings.INSTALLED_APPS)
+  File "/usr/local/lib/python3.7/site-packages/django/apps/registry.py", line 91, in populate
+    app_config = AppConfig.create(entry)
+  File "/usr/local/lib/python3.7/site-packages/django/apps/config.py", line 90, in create
+    module = import_module(entry)
+  File "/usr/local/lib/python3.7/importlib/__init__.py", line 127, in import_module
+    return _bootstrap._gcd_import(name[level:], package, level)
+  File "<frozen importlib._bootstrap>", line 1006, in _gcd_import
+  File "<frozen importlib._bootstrap>", line 983, in _find_and_load
+  File "<frozen importlib._bootstrap>", line 965, in _find_and_load_unlocked
+ModuleNotFoundError: No module named 'allauth'
+
+[25/Jun/2020 22:27:27] "GET / HTTP/1.1" 302 0
+[25/Jun/2020 22:27:27] "GET /post/ HTTP/1.1" 200 13147
+[25/Jun/2020 22:27:27] "GET /static/css/reset.css HTTP/1.1" 200 1233
+[25/Jun/2020 22:27:27] "GET /static/css/style.css HTTP/1.1" 200 3961
+[25/Jun/2020 22:27:27] "GET /static/css/post.css HTTP/1.1" 200 8025
+[25/Jun/2020 22:27:28] "GET /static/js/jquery.js HTTP/1.1" 304 0
+[25/Jun/2020 22:27:28] "GET /media/post/2020/05/29/username3/JGsiWDbn.jpg HTTP/1.1" 200 78957
+[25/Jun/2020 22:27:28] "GET /media/accounts/username5/HSzgTamQ.jpeg HTTP/1.1" 200 7182
+[25/Jun/2020 22:27:28] "GET /media/post/2020/06/13/username5/IxUVzdef.jpg HTTP/1.1" 200 53888
+[25/Jun/2020 22:27:28] "GET /media/post/2020/06/11/username4/yfFmVJbF.jpg HTTP/1.1" 200 73616
+[25/Jun/2020 22:27:28] "GET /media/post/2020/05/29/username1/tmApepfP.jpg HTTP/1.1" 200 83249
+[25/Jun/2020 22:27:28] "GET /media/post/2020/05/29/username3/lsyBWVWC.jpg HTTP/1.1" 200 63179
+[25/Jun/2020 22:27:28] "GET /media/post/2020/05/29/username2/wgGoUEal.jpg HTTP/1.1" 200 73318
+[25/Jun/2020 22:27:28] "GET /media/post/2020/05/29/username1/qnuesEHU.jpg HTTP/1.1" 200 73616
+[25/Jun/2020 22:27:28] "GET /static/imgs/arrow_left.png HTTP/1.1" 200 4220
+[25/Jun/2020 22:27:28] "GET /static/imgs/logo.png HTTP/1.1" 200 556
+[25/Jun/2020 22:27:28] "GET /static/imgs/arrow_right.png HTTP/1.1" 200 4226
+Not Found: /favicon.ico
+[25/Jun/2020 22:27:28] "GET /favicon.ico HTTP/1.1" 404 2544
+[25/Jun/2020 22:27:34] "GET /post/ HTTP/1.1" 200 13147
+[25/Jun/2020 22:27:34] "GET /static/css/post.css HTTP/1.1" 200 8025
+[25/Jun/2020 22:27:34] "GET /static/js/jquery.js HTTP/1.1" 304 0
+[25/Jun/2020 22:27:34] "GET /static/css/style.css HTTP/1.1" 200 3961
+[25/Jun/2020 22:27:34] "GET /static/css/reset.css HTTP/1.1" 200 1233
+[25/Jun/2020 22:27:34] "GET /media/post/2020/06/13/username5/IxUVzdef.jpg HTTP/1.1" 200 53888
+[25/Jun/2020 22:27:34] "GET /media/post/2020/05/29/username3/lsyBWVWC.jpg HTTP/1.1" 200 63179
+[25/Jun/2020 22:27:34] "GET /media/accounts/username5/HSzgTamQ.jpeg HTTP/1.1" 200 7182
+[25/Jun/2020 22:27:34] "GET /media/post/2020/05/29/username3/JGsiWDbn.jpg HTTP/1.1" 200 78957
+[25/Jun/2020 22:27:34] "GET /media/post/2020/05/29/username1/tmApepfP.jpg HTTP/1.1" 200 83249
+[25/Jun/2020 22:27:35] "GET /media/post/2020/05/29/username1/qnuesEHU.jpg HTTP/1.1" 200 73616
+[25/Jun/2020 22:27:35] "GET /media/post/2020/06/11/username4/yfFmVJbF.jpg HTTP/1.1" 200 73616
+[25/Jun/2020 22:27:35] "GET /media/post/2020/05/29/username2/wgGoUEal.jpg HTTP/1.1" 200 73318
+[25/Jun/2020 22:27:35] "GET /static/imgs/logo.png HTTP/1.1" 200 556
+[25/Jun/2020 22:27:35] "GET /static/imgs/arrow_left.png HTTP/1.1" 200 4220
+[25/Jun/2020 22:27:35] "GET /static/imgs/arrow_right.png HTTP/1.1" 200 4226
+Not Found: /favicon.ico
+[25/Jun/2020 22:27:35] "GET /favicon.ico HTTP/1.1" 404 2544
+[25/Jun/2020 22:27:37] "POST /post/more/friends HTTP/1.1" 200 209
+[25/Jun/2020 22:27:38] "GET /post/more/hottest HTTP/1.1" 200 5992
+Not Found: /favicon.ico
+[25/Jun/2020 22:27:39] "GET /favicon.ico HTTP/1.1" 404 2544
+[25/Jun/2020 22:27:40] "POST /post/more/hottest HTTP/1.1" 200 423
+[25/Jun/2020 22:27:42] "GET / HTTP/1.1" 302 0
+[25/Jun/2020 22:27:42] "GET /post/ HTTP/1.1" 200 13147
+[25/Jun/2020 22:27:42] "GET /static/css/post.css HTTP/1.1" 200 8025
+Not Found: /favicon.ico
+[25/Jun/2020 22:27:43] "GET /favicon.ico HTTP/1.1" 404 2544
+[25/Jun/2020 22:27:44] "POST /post/more/friends HTTP/1.1" 200 209
+[25/Jun/2020 22:28:27] "GET / HTTP/1.1" 302 0
+[25/Jun/2020 22:28:27] "GET /post/ HTTP/1.1" 200 9409
+[25/Jun/2020 22:28:31] "GET /post HTTP/1.1" 301 0
+[25/Jun/2020 22:28:31] "GET /post/ HTTP/1.1" 200 9409
+[25/Jun/2020 22:28:31] "GET /static/css/style.css HTTP/1.1" 200 3961
+[25/Jun/2020 22:28:31] "GET /static/css/reset.css HTTP/1.1" 200 1233
+[25/Jun/2020 22:28:31] "GET /static/css/post.css HTTP/1.1" 200 8025
+Performing system checks...
+
+System check identified no issues (0 silenced).
+June 25, 2020 - 22:27:21
+Django version 2.1, using settings 'config.settings'
+Starting development server at http://0:80/
+Quit the server with CONTROL-C.
+None
+None
+None
+[25/Jun/2020 22:29:57] "GET / HTTP/1.1" 302 0
+[25/Jun/2020 22:29:57] "GET /post/ HTTP/1.1" 200 9409
+[25/Jun/2020 22:29:57] "GET /static/css/reset.css HTTP/1.1" 200 1233
+[25/Jun/2020 22:29:57] "GET /static/css/post.css HTTP/1.1" 200 8025
+[25/Jun/2020 22:29:57] "GET /static/css/style.css HTTP/1.1" 200 3961
+[25/Jun/2020 22:29:57] "GET /media/post/2020/05/29/username1/tmApepfP.jpg HTTP/1.1" 200 83249
+[25/Jun/2020 22:29:57] "GET /media/post/2020/05/29/username3/lsyBWVWC.jpg HTTP/1.1" 200 63179
+[25/Jun/2020 22:29:57] "GET /media/post/2020/06/11/username4/yfFmVJbF.jpg HTTP/1.1" 200 73616
+[25/Jun/2020 22:29:57] "GET /static/imgs/more.png HTTP/1.1" 200 259
+[25/Jun/2020 22:29:57] "GET /media/post/2020/06/13/username5/IxUVzdef.jpg HTTP/1.1" 200 53888
+[25/Jun/2020 22:29:57] "GET /media/post/2020/05/29/username3/JGsiWDbn.jpg HTTP/1.1" 200 78957
+[25/Jun/2020 22:29:57] "GET /media/post/2020/05/29/username2/wgGoUEal.jpg HTTP/1.1" 200 73318
+[25/Jun/2020 22:29:58] "GET /static/imgs/logo.png HTTP/1.1" 200 556
+[25/Jun/2020 22:29:58] "GET /static/imgs/arrow_left.png HTTP/1.1" 200 4220
+[25/Jun/2020 22:29:58] "GET /static/imgs/arrow_right.png HTTP/1.1" 200 4226
+[25/Jun/2020 22:29:59] "GET / HTTP/1.1" 302 0
+[25/Jun/2020 22:30:00] "GET /post/ HTTP/1.1" 200 9409
+[25/Jun/2020 22:30:02] "GET /post/more/hottest HTTP/1.1" 200 5734
+[25/Jun/2020 22:30:02] "GET /static/js/jquery.js HTTP/1.1" 200 282766
+[25/Jun/2020 22:30:14] "GET /post/more/hottest HTTP/1.1" 200 5734
+Forbidden (CSRF cookie not set.): /post/more/hottest
+[25/Jun/2020 22:30:15] "POST /post/more/hottest HTTP/1.1" 403 2992
+[25/Jun/2020 22:30:18] "GET / HTTP/1.1" 302 0
+[25/Jun/2020 22:30:18] "GET /post/ HTTP/1.1" 200 9409
+[25/Jun/2020 22:30:20] "GET /post/more/recents HTTP/1.1" 200 5741
+Forbidden (CSRF cookie not set.): /post/more/recents
+[25/Jun/2020 22:30:23] "POST /post/more/recents HTTP/1.1" 403 2992
+[25/Jun/2020 22:30:35] "GET /post/more/recents HTTP/1.1" 200 5741
+Performing system checks...
+
+System check identified no issues (0 silenced).
+June 25, 2020 - 22:29:52
+Django version 2.1, using settings 'config.settings'
+Starting development server at http://0:80/
+Quit the server with CONTROL-C.
+[25/Jun/2020 22:30:40] "GET / HTTP/1.1" 302 0
+[25/Jun/2020 22:30:40] "GET /post/ HTTP/1.1" 200 9409
+[25/Jun/2020 22:32:21] "GET / HTTP/1.1" 302 0
+[25/Jun/2020 22:32:21] "GET /post/ HTTP/1.1" 200 9409
+[25/Jun/2020 22:32:26] "GET /admin/login/?next=/admin/ HTTP/1.1" 200 2012
+[25/Jun/2020 22:32:26] "GET /static/admin/css/fonts.css HTTP/1.1" 200 423
+[25/Jun/2020 22:32:29] "GET / HTTP/1.1" 302 0
+[25/Jun/2020 22:32:29] "GET /post/ HTTP/1.1" 200 13147
+[25/Jun/2020 22:32:29] "GET /static/css/reset.css HTTP/1.1" 200 1233
+[25/Jun/2020 22:32:29] "GET /static/css/post.css HTTP/1.1" 304 0
+[25/Jun/2020 22:34:45] "GET / HTTP/1.1" 302 0
+[25/Jun/2020 22:34:45] "GET /post/ HTTP/1.1" 200 13147
+[25/Jun/2020 22:34:45] "GET /static/css/post.css HTTP/1.1" 304 0
+Not Found: /favicon.ico
+[25/Jun/2020 22:34:45] "GET /favicon.ico HTTP/1.1" 404 2544
+[25/Jun/2020 22:37:22] "GET / HTTP/1.1" 302 0
+[25/Jun/2020 22:37:22] "GET /post/ HTTP/1.1" 200 13147
+[25/Jun/2020 22:37:22] "GET /static/css/reset.css HTTP/1.1" 200 1233
+[25/Jun/2020 22:37:22] "GET /static/css/post.css HTTP/1.1" 200 8025
+Not Found: /favicon.ico
+[25/Jun/2020 22:37:22] "GET /favicon.ico HTTP/1.1" 404 2544
+[25/Jun/2020 22:38:17] "GET / HTTP/1.1" 302 0
+[25/Jun/2020 22:38:17] "GET /post/ HTTP/1.1" 200 13090
+Not Found: /favicon.ico
+[25/Jun/2020 22:38:18] "GET /favicon.ico HTTP/1.1" 404 2544
+[25/Jun/2020 22:38:52] "GET /post/more/hottest HTTP/1.1" 200 5962
+[25/Jun/2020 22:38:57] "POST /post/more/hottest HTTP/1.1" 200 423
+[25/Jun/2020 22:38:59] "GET / HTTP/1.1" 302 0
+[25/Jun/2020 22:38:59] "GET /post/ HTTP/1.1" 200 13090
+[25/Jun/2020 22:39:02] "POST /post/more/friends HTTP/1.1" 200 227
+[25/Jun/2020 22:39:07] "GET /post/more/recents HTTP/1.1" 200 5969
+[25/Jun/2020 22:39:08] "POST /post/more/recents HTTP/1.1" 200 642
+[25/Jun/2020 22:39:23] "GET / HTTP/1.1" 302 0
+[25/Jun/2020 22:39:23] "GET /post/ HTTP/1.1" 200 13090
+[25/Jun/2020 22:41:50] "GET / HTTP/1.1" 302 0
+[25/Jun/2020 22:41:50] "GET /post/ HTTP/1.1" 200 13147
+[25/Jun/2020 22:41:50] "GET /static/css/reset.css HTTP/1.1" 200 1233
+[25/Jun/2020 22:41:50] "GET /static/css/post.css HTTP/1.1" 304 0

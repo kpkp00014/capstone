@@ -1,0 +1,61 @@
+{% load static %}
+<script src="{% static 'js/jquery.js' %}"></script>
+<script type="text/javascript">
+(function(){
+	
+    function scrollfunc() {
+        var scrollHeight = pageYOffset + window.innerHeight;
+        var documentHeight = document.body.scrollHeight;
+        if(scrollHeight >= documentHeight) {
+            var page = document.querySelector('#page').value;
+			var end_page = {{ post_list.paginator.num_pages }};			
+
+            if (page > end_page) {
+                return;
+            }
+        document.querySelector('#page').value = parseInt(page) +1;
+        callMorePostAjax(page);
+        }
+    }
+     
+    function callMorePostAjax(page) {
+        var end_page = {{ post_list.paginator.num_pages }};
+		console.log(window.location.pathname)
+		if(window.location.pathname == '/post/') {
+			var about = 'friends';
+		} else {
+			var about = document.querySelector('.box_title').innerText;	
+		}
+    	
+        console.log('page: '+page + ' end_page : ' + end_page)
+        if( page > end_page ) {
+            return;
+        }
+    
+        $.ajax({
+            type: 'POST',
+            url: '/post/more/'+about,
+            data: {
+                'page' : page,
+                'csrfmiddlewaretoken': '{{ csrf_token }}',
+            },
+            dataType: 'html',
+            success : addMorePostAjax,
+            error: function(request, status, error){
+                    alert('code:!'+request.status+ "\n"+
+                          "message:"+request.responseText+"\n"+
+                         "error:"+error);
+                },
+        });
+    }
+ 
+    function addMorePostAjax(data, textStatus, jqXHR) {
+        let post = document.querySelector('#post_list_ajax');
+        console.log('addmorepostajax 실행! post는'+post)
+        post.insertAdjacentHTML('beforeend', data);
+    }
+
+    window.addEventListener('scroll', scrollfunc);
+ })();
+
+</script>

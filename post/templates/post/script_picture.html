@@ -2,11 +2,11 @@
     const hottest = document.querySelectorAll(
       "#hottest .slider_box .contents"
     );
-    const friend = document.querySelectorAll(
-      "#friend .slider_box .contents"
+    const recent = document.querySelectorAll(
+      "#recent .slider_box .contents"
     );
-    let hottest_index = Math.floor(Math.random() * hottest.length);
-    let friend_index = Math.floor(Math.random() * friend.length);
+    let hottest_index =0;
+    let recent_index = Math.floor(Math.random() * recent.length);
     function setImage(target, index) {
       const length = target.length;
       for (var i = 0; i < length; i++) {
@@ -26,7 +26,7 @@
       target[right].classList.add("right");
     }
     setImage(hottest, hottest_index);
-    setImage(friend, friend_index);
+    setImage(recent, recent_index);
 
     const arrow_left = document.querySelectorAll(".arrow_left");
     const arrow_right = document.querySelectorAll(".arrow_right");
@@ -35,22 +35,22 @@
       id = e.target.parentNode.parentNode.id;
       way = e.target.classList[0];
 
-      if (way === "arrow_right") {
+      if (way === "arrow_left") {
         if (id === "hottest") {
           hottest_index =
             (hottest_index + hottest.length - 1) % hottest.length;
           setImage(hottest, hottest_index);
         } else {
-          friend_index = (friend_index + friend.length - 1) % friend.length;
-          setImage(friend, friend_index);
+          recent_index = (recent_index + recent.length - 1) % recent.length;
+          setImage(recent, recent_index);
         }
-      } else if (way === "arrow_left") {
+      } else if (way === "arrow_right") {
         if (id === "hottest") {
           hottest_index = (hottest_index + 1) % hottest.length;
           setImage(hottest, hottest_index);
         } else {
-          friend_index = (friend_index + 1) % friend.length;
-          setImage(friend, friend_index);
+          recent_index = (recent_index + 1) % recent.length;
+          setImage(recent, recent_index);
         }
       } else return;
     }

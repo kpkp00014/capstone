@@ -6,21 +6,31 @@
     <div class="main_contents">
         <div class="contents_header">
             <div class="box_title">
-                {% if about == 'recents' %}
-                Recents
-                {% endif %}
+                {{about}}
             </div>
         </div>
         <div class="contents_item_box oneline_contents">
         {% for post in post_list %}
+            {% if post.id %}
             <div class="contents">
                 <a href="/post/post_num/{{ post.id }}">
                     <img src="{{ post.photo.url }}" name="{{ post.id }}" alt="이미지" />
                     <span class="maintag">{{ post.content }}</span>
                 </a>
             </div>
+            {% else %}
+            <div class="contents">
+                <a href="/post/post_num/{{ post.post }}">
+                    <img src="/media/{{ post.url }}" name="{{ post.post }}" alt="이미지" />
+                    <span class="maintag">{{ post.content }}</span>
+                </a>
+            </div>
+            {% endif %}
         {% endfor %}
+			<div id="post_list_ajax"></div>
+			<input type="hidden" id="page" value="2" />
         </div>
     </div>
 </div>
+{% include "post/script_infinite_ajax.html" %}
 {% endblock %}

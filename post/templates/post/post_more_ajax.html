@@ -1,0 +1,18 @@
+{% load static %}
+{% for post in post_list %}
+{% if post.id %}
+	<div class="contents">
+		<a href="/post/post_num/{{ post.id }}">
+			<img src="{{ post.photo.url }}" name="{{ post.id }}" alt="이미지" />
+			<span class="maintag">{{ post.content }}</span>
+		</a>
+	</div>
+{% else %}
+	<div class="contents">
+		<a href="/post/post_num/{{ post.post }}">
+			<img src="/media/{{ post.url }}" name="{{ post.post }}" alt="이미지" />
+			<span class="maintag">{{ post.content }}</span>
+		</a>
+	</div>
+{% endif %}
+{% endfor %}

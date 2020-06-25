@@ -1,0 +1,64 @@
+{% load static %}
+<script src="{% static 'js/jquery.js' %}"></script>
+<script type="text/javascript">
+(function(){
+    function errorHandler(req, status, e){
+        alert('code:!'+req.status+ "\n"+
+              "message:"+status.responseText+"\n"+
+              "error:"+e);
+    }
+    
+    var delegation = document.querySelector('#menu_box');
+	
+    function delegationFunction(e){
+        let elem = e.target;
+        while (!elem.getAttribute('data-name')){
+            elem = elem.parentNode;
+            
+            if (elem.nodeName === 'BODY'){
+                elem = null;
+                return;
+            }
+        }
+		console.log(e)
+        if (elem.matches('[data-name="follow"]')){
+            var pk = elem.getAttribute('name');
+            $.ajax({
+                type:'POST',
+                url: '{% url "accounts:follow" %}',
+                data: {
+                    'pk':pk,
+                    'csrfmiddlewaretoken':'{{csrf_token}}'
+                },
+                success: function(response){
+                    var likeCount = document.querySelector('.content_text span.like');
+                    location.href = location.href;
+                },
+                error : function(request, status, error){
+                    errorHandler(request, status, error);
+                },
+            });
+        } else if (elem.matches('[data-name="black"]')) {
+            const pk = elem.getAttribute('name');
+            const follow = document.querySelector('#follow_icon');
+            const blacklist = document.querySelector('#blacklist_icon');
+            $.ajax({
+                type:'POST',
+                url: '{% url "accounts:blacklist" %}',
+                data: {
+                    'pk':pk,
+                    'csrfmiddlewaretoken':'{{csrf_token}}'
+                },
+                success : function(response){
+                    location.href = location.href;
+                },
+                error : function(request, status, error){
+                    errorHandler(request, status, error);
+                }
+            });
+        } 
+    }
+    delegation.addEventListener('click',delegationFunction);
+ })();
+
+</script>

@@ -1,15 +1,15 @@
 from django.contrib.auth import get_user_model
 from django.shortcuts import get_object_or_404, redirect, render
 from django.contrib import messages
-from .models import Post, Tag
+from .models import Post, Tag, Like
 from accounts.models import Scrap
 from .forms import PostForm
 
 from django.contrib.auth.decorators import login_required
 from django.views.decorators.http import require_POST
-from django.db.models import Count
+from django.db.models import Q, F, Count
 
-#from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 
 #web crawlling
 import ssl, urllib, requests
@@ -152,14 +152,17 @@ def post_search(request, tag):
         .select_related('author__profile') 
         print(post_list)
         return render(request, 'post/post_list.html', {
-            'post_list' : post_list
+            'post_list' : post_list,
+            'about' : '#'+tag+'의 검색 결과'
         })
     else:
         return redirect('post:post_main')
     
 def post_more(request, about):
     if about=='hottest':
-        pass
+        post_list = Like.objects.values('post')\
+    .annotate(Count('user'), content=F('post__content'), url=F('post__photo__url'))\
+    .order_by('-user__count')
     elif about == 'friend':
         if not request.user:
             return redirect('post:post_main')
@@ -168,10 +171,41 @@ def post_more(request, about):
         .select_related('post__follow')
     elif about == 'recents':
         post_list = Post.objects.all()
+    elif about == 'friends':
+        if request.user.is_authenticated:
+            user = request.user
+        else:
+            user = None
+            post_list = None
+        if user:
+            post_list = Post.objects.exclude(
+                ~Q(author__profile__follow_user__from_user__profile__id=user.profile.id,
+                                             author__profile__follower_user__follow_or_black=True))
+        else:
+            friend_list = None
     else:
         return redirect('post:post_main')
+    
+    
+    paginator = Paginator(post_list, 4)
+    page_num = request.POST.get('page')
+    
+    try:
+        posts = paginator.page(page_num)
+    except PageNotAnInteger:
+        posts = paginator.page(1)
+    except EmptyPage:
+        posts = paginator.page(paginator.num_pages)
+
+
+        
+    if request.is_ajax():
+        return render(request, 'post/post_more_ajax.html', {
+            'post_list': posts,
+        })
+    
     return render(request, 'post/post_list.html', {
-            'post_list': post_list,
+            'post_list': posts,
             'about': about,
         })
     
@@ -179,30 +213,44 @@ def post_more(request, about):
     
     
 def post_main(request):
-    hottest_list = Post.objects.all()
-    hottest_list = hottest_list[:5]
-    friend_list = Post.objects.all()
-    friend_list = friend_list[:5]
-    """
-    paginator = Paginator(recent_list, 6)
-    page_num = request.POST.get('page')
+    if request.user.is_authenticated:
+        user = request.user
+    else:
+        user = None
+    hottest_list = Like.objects.values('post')\
+    .annotate(Count('user'), content=F('post__content'), url=F('post__photo__url'))\
+    .order_by('-user__count')[:5]
+    if user:
+        friend_list = Post.objects.exclude(
+            ~Q(author__profile__follow_user__from_user__profile__id=user.profile.id,
+                                         author__profile__follower_user__follow_or_black=True))
+        paginator = Paginator(friend_list, 4)
+        page_num = request.POST.get('page')
+        print(page_num)
+        try:
+            posts = paginator.page(page_num)
+        except PageNotAnInteger:
+            posts = paginator.page(1)
+        except EmptyPage:
+            posts = paginator.page(paginator.num_pages)
+    else:
+        friend_list = None
+        posts = None
+
+
+
+    recent_list = Post.objects.filter(~Q(author__profile__follow_user__from_user__profile__user=user,
+                                       author__profile__follow_user__follow_or_black=False
+                                      ))[:5]
     
-    try:
-        recent_list = paginator.page(page_num)
-    except PageNotAnInteger:
-        recent_list = paginator.page(1)
-    except EmptyPage:
-        recent_list = paginator.page(paginator.num_pages)
-    """
-    recent_list = Post.objects.all()[:5]
     if request.is_ajax():
-        return render(request, 'post/post_list_ajax.html',{
-            'posts': recent_list
+        return render(request, 'post/post_more_ajax.html',{
+            'post_list': posts
         })
     
     return render(request, 'post/post_main.html', {
         'hottest_list': hottest_list,
-        'friend_list': friend_list,
+        'post_list': posts,
         'recent_list': recent_list,
     })
 

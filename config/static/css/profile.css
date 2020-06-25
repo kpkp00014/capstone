@@ -125,6 +125,13 @@
   display: inline-block;
   color: #999;
 }
+#img_id {
+    width: 400px;
+    height: 400px;
+    text-align: center;
+    vertical-align: middle;
+    border-radius: 50%;
+}
 @media screen and (max-width: 1000px) {
   #profile_container {
     display: block;

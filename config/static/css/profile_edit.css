@@ -1,0 +1,26 @@
+.preview .upload .post_btn p{
+	width: 100%;
+}
+
+.preview .upload .post_btn p{
+	width: 100%;
+}
+
+#img_id {
+	position: relative;
+	left: 50%;
+	transform: translate(-50%);
+	
+}
+
+.post_form p {
+	margin-bottom : 5px;
+}
+
+.profile-edit-content {
+    border: rgba(0,0,0,0.09);
+    background: #fee;
+    border-radius: 5px;
+    margin: 10px 0px;
+    padding: 7px;
+}

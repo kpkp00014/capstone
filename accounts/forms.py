@@ -51,3 +51,15 @@ class SignupForm(UserCreationForm):
         )
         return user
     
+class EditForm(forms.ModelForm):
+    nickname = forms.CharField(label='닉네임', required = False)
+    picture = forms.ImageField(label='', required = False)
+    about = forms.CharField(label='', required = False, widget=forms.Textarea(attrs={
+        'class' : 'profile-edit-content',
+        'rows': 7,
+        'cols': 50,
+        'placeholder': '300자 까지 입력 가능합니다'
+    }))
+    class Meta:
+        model = Profile
+        fields = ['nickname', 'picture', 'about']
